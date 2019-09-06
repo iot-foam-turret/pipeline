@@ -1,0 +1,9 @@
+version: 0.1
+phases:
+  install:
+    commands:
+      - cd /tmp && curl -o terraform.zip https://releases.hashicorp.com/terraform/${TerraformVersion}/terraform_${TerraformVersion}_linux_amd64.zip && echo "${TerraformSha256} terraform.zip" | sha256sum -c --quiet && unzip terraform.zip && mv terraform /usr/bin
+  build:
+    commands:
+      - terraform remote config -backend=s3 -backend-config="bucket=${TerraformStateBucket}" -backend-config="key=terraform.tfstate"
+      - terraform apply
