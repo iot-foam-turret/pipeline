@@ -7,4 +7,5 @@ phases:
     commands:
       - export TF_VAR_bucket_name=${TerraformStateBucket}
       - terraform init -no-color
+      - terraform import aws_iot_thing.pi_turret Pi-Turret
       - terraform apply -no-color
